@@ -1,14 +1,74 @@
-#l'utilisateur choisit un nombre de lettres
 
-#choisir un mot au hasard en français
+import random
 
-#en fonction du nombre de lettres dans le mot, l'ordinateur dessine x nombre de tirets
+# Select a word randomly from a list of words
+file = open('wordlist.txt', 'r')
+lines=file.readlines()
+word = random.choice(lines)
 
-#l'ordi demande à l'utilisateur de choisir une lettre
+# Variables definition
+lives = 7
+choices = []
+result = []
+i = 0
 
-#si cette lettre ne convient pas, la potence continue à se dessiner
 
-#si elle convient, elle apparaît au dessus des tirets
+#The result list shall be by default composed of hyphens
+for i in range(len(word)):
+    result.insert(i,'_')
 
-#si l'utilisateur se trompe 7 fois, il a perdu.
 
+#While the number of lives is not equal to 0
+while lives != 0:
+
+    #Variable to count a successful move from the user
+    a = 0
+
+    #A loop to check user's input
+    while True:
+        
+        letter = input('Guess a letter : ')
+        
+
+        if letter.isalpha() == False :
+            print ('You must type a letter.')
+        elif len(letter) > 1 :
+            print("Sorry, you must type only one letter.")
+        else :
+            break
+
+  
+    #Store user's choice in a variable
+    choices += letter
+
+    #Transform the word into a list
+    word = list(word)
+
+    for i in range(len(word)):
+        if word[i] == letter :
+            result[i] = letter
+            a +=1
+   
+    if a == 0:
+        print ('Your letter, ', letter,', is not in the word')
+
+
+    i += 1
+
+    lives = lives - 1
+   
+   #Convert choices variable to string and upper cases
+    finalchoices = ' '.join(choices)
+    ultimatechoices = finalchoices.upper()
+
+
+    #Tell the user how many lives they have left
+    print('You have', lives ,'remaining lives and you have used these letters : ', ultimatechoices)
+    #Tell the user what the current word is 
+    finalresult = ' '.join(result)
+    ultimateresult = finalresult.upper()
+    print('Current word : ',ultimateresult)
+
+finalword = ' '.join(word)
+ultimateword = finalword.upper()
+print('The correct word was', ultimateword)
